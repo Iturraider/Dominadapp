@@ -181,18 +181,20 @@ function renderWorkoutCard(workout, week, isWeekend) {
 
     // Botón de timer según tipo
     let timerBtnHtml = '';
+    const btnBaseClass = "flex-1 py-4 rounded-2xl font-bold transition active:scale-95 touch-manipulation";
+
     if (workout.type === 'Tradicional' || workout.type === 'Asistencia') {
-        timerBtnHtml = `<button onclick="window.setupTimer('normal', 120)" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-bold transition">⏱️ Descanso (2:00)</button>`;
+        timerBtnHtml = `<button onclick="window.setupTimer('normal', 120)" class="${btnBaseClass} bg-gray-100 hover:bg-gray-200 text-gray-700">⏱️ Descanso (2:00)</button>`;
     } else if (workout.type === 'Cluster') {
-        timerBtnHtml = `<button onclick="window.setupTimer('cluster', 15)" class="flex-1 bg-purple-100 hover:bg-purple-200 text-purple-700 py-3 rounded-xl font-bold transition">⚡ Cluster (15s)</button>`;
+        timerBtnHtml = `<button onclick="window.setupTimer('cluster', 15)" class="${btnBaseClass} bg-purple-100 hover:bg-purple-200 text-purple-700">⚡ Cluster (15s)</button>`;
     } else if (workout.type === 'EMOM') {
-        timerBtnHtml = `<button onclick="window.setupTimer('emom', 60)" class="flex-1 bg-orange-100 hover:bg-orange-200 text-orange-700 py-3 rounded-xl font-bold transition">🔥 EMOM (60s)</button>`;
+        timerBtnHtml = `<button onclick="window.setupTimer('emom', 60)" class="${btnBaseClass} bg-orange-100 hover:bg-orange-200 text-orange-700">🔥 EMOM (60s)</button>`;
     }
 
     // Botón de estado
     const statusBtn = isDone
-        ? `<button onclick="window.toggleDay('${id}')" class="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-xl font-bold shadow-lg shadow-green-200 transition">¡COMPLETADO! ✅</button>`
-        : `<button onclick="window.toggleDay('${id}')" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold shadow-lg shadow-blue-200 transition">MARCAR COMO HECHO</button>`;
+        ? `<button onclick="window.toggleDay('${id}')" class="w-full bg-green-500 hover:bg-green-600 text-white py-5 rounded-2xl font-bold shadow-lg shadow-green-200 transition active:scale-95 touch-manipulation text-lg">¡COMPLETADO! ✅</button>`
+        : `<button onclick="window.toggleDay('${id}')" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-5 rounded-2xl font-bold shadow-lg shadow-blue-200 transition active:scale-95 touch-manipulation text-lg">MARCAR COMO HECHO</button>`;
 
     container.innerHTML = `
         <div class="p-6 md:p-8">
@@ -239,15 +241,15 @@ function renderFullTable() {
         const rowClass = isDone ? 'bg-green-50' : '';
 
         html += `
-            <tr class="hover:bg-gray-50 transition ${rowClass}">
-                <td class="py-3 px-4 font-bold text-gray-500">${item.w}</td>
-                <td class="py-3 px-4 text-gray-800">${item.d}</td>
-                <td class="py-3 px-4">
+            <tr class="hover:bg-gray-50 active:bg-gray-100 transition cursor-pointer ${rowClass}" onclick="window.toggleDay('${id}')">
+                <td class="py-4 px-4 font-bold text-gray-500 text-lg">${item.w}</td>
+                <td class="py-4 px-4 text-gray-800 font-medium">${item.d}</td>
+                <td class="py-4 px-4">
                     <div class="text-sm font-bold text-gray-700">${item.type}</div>
                     <div class="text-xs text-gray-500 truncate max-w-[150px] md:max-w-none">${item.task}</div>
                 </td>
-                <td class="py-3 px-4 text-center cursor-pointer" onclick="window.toggleDay('${id}')">
-                    ${statusIcon}
+                <td class="py-4 px-4 text-center">
+                    <span class="text-xl">${statusIcon}</span>
                 </td>
             </tr>
         `;

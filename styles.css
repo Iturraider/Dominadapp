@@ -1,16 +1,65 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+:root {
+    --safe-area-top: env(safe-area-inset-top);
+    --safe-area-bottom: env(safe-area-inset-bottom);
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: #f3f4f6;
     color: #1f2937;
+    /* Evitar rebote en iOS si no es necesario */
+    overscroll-behavior-y: none;
+    /* Ajustes para PWA */
+    padding-top: max(1rem, var(--safe-area-top));
+    padding-bottom: max(5rem, var(--safe-area-bottom));
+    min-height: 100vh;
 }
+
+/* Mejorar scroll */
+html {
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+/* Botones con mejor tacto */
+button {
+    touch-action: manipulation;
+    user-select: none;
+}
+
 .timer-display {
     font-variant-numeric: tabular-nums;
 }
+
 .animate-pulse-slow {
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: .5; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .5;
+    }
+}
+
+/* Utilidad para esconder scrollbar pero permitir scroll */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }

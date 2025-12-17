@@ -377,3 +377,39 @@ function playBeep() {
         console.log("Audio not supported or blocked");
     }
 }
+
+// --- PWA INSTALL LOGIC ---
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevenir que Chrome muestre el prompt nativo inmediatamente
+    e.preventDefault();
+    // Guardar el evento para dispararlo después
+    deferredPrompt = e;
+
+    // Mostrar el botón de instalar
+    const installBtn = document.getElementById('pwa-install-btn');
+    if (installBtn) {
+        installBtn.classList.remove('hidden');
+
+        installBtn.onclick = async () => {
+            // Ocultar botón
+            installBtn.classList.add('hidden');
+            // Mostrar prompt nativo
+            deferredPrompt.prompt();
+            // Esperar elección del usuario
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to the install prompt: ${outcome}`);
+            deferredPrompt = null;
+        };
+    }
+});
+
+window.addEventListener('appinstalled', () => {
+    // La app se instaló
+    const installBtn = document.getElementById('pwa-install-btn');
+    if (installBtn) installBtn.classList.add('hidden');
+    deferredPrompt = null;
+    console.log('PWA was installed');
+});

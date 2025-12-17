@@ -106,7 +106,7 @@ function saveProgress() {
 async function registerSW() {
     if ('serviceWorker' in navigator) {
         try {
-            await navigator.serviceWorker.register('./sw.js');
+            await navigator.serviceWorker.register('./js/sw.js');
             console.log('Service Worker registrado');
         } catch (e) {
             console.log('Service Worker falló', e);

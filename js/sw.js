@@ -1,11 +1,10 @@
 const CACHE_NAME = 'dominadas-pro-v2';
 const ASSETS = [
-    './',
-    './index.html',
-    './styles.css',
+    '../',
+    '../index.html',
+    '../css/styles.css',
     './script.js',
-    './icon-192.png',
-    './icon-512.png',
+    '../img/icon.png',
     'https://cdn.tailwindcss.com'
 ];
 

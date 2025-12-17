@@ -4,7 +4,7 @@ const ASSETS = [
     '../index.html',
     '../css/styles.css',
     './script.js',
-    '../img/icon.png',
+    '../img/AppIcon.png',
     'https://cdn.tailwindcss.com'
 ];
 
